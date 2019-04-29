@@ -1,0 +1,239 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.5">
+    <title>News Prediction</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+        /*
+ * Globals
+ */
+
+        /* Links */
+        a,
+        a:focus,
+        a:hover {
+            color: #fff;
+        }
+
+        /* Custom default button */
+        .btn-secondary,
+        .btn-secondary:hover,
+        .btn-secondary:focus {
+            color: #333;
+            text-shadow: none; /* Prevent inheritance from `body` */
+            background-color: #fff;
+            border: .05rem solid #fff;
+        }
+
+
+        /*
+         * Base structure
+         */
+
+        html,
+        body {
+            height: 100%;
+            background-color: #333;
+        }
+
+        body {
+            display: -ms-flexbox;
+            display: flex;
+            color: #fff;
+            text-shadow: 0 .05rem .1rem rgba(0, 0, 0, .5);
+            box-shadow: inset 0 0 5rem rgba(0, 0, 0, .5);
+        }
+
+        .cover-container {
+            max-width: 42em;
+        }
+
+
+        /*
+         * Header
+         */
+        .masthead {
+            margin-bottom: 2rem;
+        }
+
+        .masthead-brand {
+            margin-bottom: 0;
+        }
+
+        .nav-masthead .nav-link {
+            padding: .25rem 0;
+            font-weight: 700;
+            color: rgba(255, 255, 255, .5);
+            background-color: transparent;
+            border-bottom: .25rem solid transparent;
+        }
+
+        .nav-masthead .nav-link:hover,
+        .nav-masthead .nav-link:focus {
+            border-bottom-color: rgba(255, 255, 255, .25);
+        }
+
+        .nav-masthead .nav-link + .nav-link {
+            margin-left: 1rem;
+        }
+
+        .nav-masthead .active {
+            color: #fff;
+            border-bottom-color: #fff;
+        }
+
+        @media (min-width: 48em) {
+            .masthead-brand {
+                float: left;
+            }
+            .nav-masthead {
+                float: right;
+            }
+        }
+
+
+        /*
+         * Cover
+         */
+        .cover {
+            padding: 0 1.5rem;
+        }
+        .cover .btn-lg {
+            padding: .75rem 1.25rem;
+            font-weight: 700;
+        }
+
+
+        /*
+         * Footer
+         */
+        .mastfoot {
+            color: rgba(255, 255, 255, .5);
+        }
+
+        .flipBtnWrapper{
+            width: 200px;
+            height: 50px;
+            position: relative;
+            float: right;
+            margin: 6% 4%;
+            bottom: 30px;
+            right: 30%;
+        }
+        .flipBtn, .flipBtn_checkbox, .flipBtn_face{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        .flipBtn {
+            transition: transform 2s;
+            transform-style: preserve-3d;
+            pointer-events: none;
+            box-shadow: 0px 0px 4px #C7C7C7;
+        }
+        .flipBtnWrapper:hover >  .flipBtn{
+            box-shadow: 0px 0px 4px #828282;
+        }
+        .flipBtn_back{
+            transform:  translateZ( -10px );
+        }
+        .flipBtn_front{
+            transform: translateZ( 10px );
+            backface-visibility: hidden;
+        }
+        .flipBtn_back, .flipBtn_front{
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        .flipBtn_checkbox{
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .flipBtn_front.demo3{
+            background-color: #ffffff;
+        }
+        .flipBtn_back.demo3{
+            background-color: #ffffff;
+        }
+        .flipBtn_mid.demo3{
+            width: 20px;
+            background-color: #888888;
+            transform: rotateY(90deg);
+            right: -10px;
+        }
+        .flipBtn_checkbox:checked + .flipBtn.demo3{
+            transform: rotateY( -180deg );
+        }
+
+    </style>
+</head>
+<body class="text-center">
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <header class="masthead mb-auto">
+        <div class="inner">
+            <h3 class="masthead-brand">Predicting.....</h3>
+        </div>
+    </header>
+
+    <main role="main" class="inner cover">
+        <h1 class="cover-heading">{{title}}</h1>
+        <p class="lead" id="article"></p>
+        <p class="lead">
+            <div class="flipBtnWrapper">
+                <input class="flipBtn_checkbox" type="checkbox"/>
+                <div class="flipBtn demo3">
+                    <div class="flipBtn_face flipBtn_back demo3" style="transform: scale(-1, 1);padding: 10px 0;">
+                        <a href="#" style="color: #000000;">Popularity is {{pop_value}}</a>
+                    </div>
+                    <div class="flipBtn_face flipBtn_mid demo3"></div>
+                    <div class="flipBtn_face flipBtn_front demo3" style="padding: 10px 0;">
+                        <a href="#" style="color: #000000;text-align: center;">See Result</a>
+                    </div>
+                </div>
+            </div>
+    </main>
+
+    <footer class="mastfoot mt-auto">
+        <div class="inner">
+            <p>Data Analytics Pipeline Spring 2019 - News Popularity</p>
+        </div>
+    </footer>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script>
+    var text = '{{text}}';
+    var i = 0;
+    function typeWriter() {
+        if (i < text.length) {
+            $("#article").text(text.substring(0,i));
+            i++;
+            setTimeout(typeWriter, 100);
+        }
+    }
+    typeWriter()
+</script>
+</body>
+</html>
