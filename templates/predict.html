@@ -200,13 +200,16 @@
 
     <main role="main" class="inner cover">
         <h1 class="cover-heading">{{title}}</h1>
+        <h2 class="lead">Article Source: {{url}}</h2>
         <p class="lead" id="article"></p>
         <p class="lead">
             <div class="flipBtnWrapper">
-                <input class="flipBtn_checkbox" type="checkbox"/>
+                <input class="flipBtn_checkbox" type="checkbox">
                 <div class="flipBtn demo3">
-                    <div class="flipBtn_face flipBtn_back demo3" style="transform: scale(-1, 1);padding: 10px 0;">
-                        <a href="#" style="color: #000000;">Popularity is {{pop_value}}</a>
+                    <div class="flipBtn_face flipBtn_back demo3" style="transform: scale(-1, 1);padding: 1px 10;">
+                        <a href="#" style="color: #000000;">Popularity level </a>
+    <br>
+                        <b href="#" style="color: #000000;">{{pop_value}}</b>
                     </div>
                     <div class="flipBtn_face flipBtn_mid demo3"></div>
                     <div class="flipBtn_face flipBtn_front demo3" style="padding: 10px 0;">

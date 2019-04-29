@@ -57,7 +57,7 @@ def teardown_request(exception):
 
 @app.route('/')
 def index():
-    return render_template("Homepage.html")
+    return render_template("index.html")
 
 
 @app.route('/list', methods=['POST','GET'])
@@ -69,33 +69,36 @@ def list():
     num1 = nums[0]
     T_sql = gettext(num1)
     title1 = T_sql['title'].values[0]
+    pic1 = T_sql['pic'].values[0]
 
     num2 = nums[1]
     T_sql = gettext(num2)
     title2 = T_sql['title'].values[0]
+    pic2 = T_sql['pic'].values[0]
 
     num3 = nums[2]
     T_sql = gettext(num3)
     title3 = T_sql['title'].values[0]
+    pic3 = T_sql['pic'].values[0]
 
     num4 = nums[3]
     T_sql = gettext(num4)
     title4 = T_sql['title'].values[0]
+    pic4 = T_sql['pic'].values[0]
 
     num5 = nums[4]
     T_sql = gettext(num5)
     title5 = T_sql['title'].values[0]
+    pic5 = T_sql['pic'].values[0]
 
     num6 = nums[5]
     T_sql = gettext(num6)
     title6 = T_sql['title'].values[0]
-
-    num1 = nums[0]
-    T_sql = gettext(num1)
-    title1 = T_sql['title'].values[0]
+    pic6 = T_sql['pic'].values[0]
 
     return render_template("selectNewsToPredict.html",num1 = num1, num2 = num2, num3 = num3, num4 = num4, num5 = num5, num6 = num6,
-                           title1 = title1, title2 = title2, title3 = title3, title4 = title4, title5 = title5,title6 = title6)
+                           title1 = title1, title2 = title2, title3 = title3, title4 = title4, title5 = title5,title6 = title6, pic1=pic1,
+                           pic2=pic2, pic3=pic3, pic4=pic4, pic5=pic5, pic6=pic6)
 
 
 
@@ -111,8 +114,8 @@ def predict():
     title =T_sql['title'].values[0]
     results = getTable(index)
     results =results.iloc[:,2:-1]
-
-    pop_value = moswl.predict(results)
+    pop_dist=["very low", "below average", "average", "high", "very high", "very high"]
+    pop_value = pop_dist[moswl.predict(results)[0]]
 
     info = []
     dic = dict()
