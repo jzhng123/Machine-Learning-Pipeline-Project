@@ -17,6 +17,17 @@ app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 url1 = "https://raw.githubusercontent.com/thuhlz/OpenDataSetNewsPop/master/train.csv"
 s = requests.get(url1).content
 data = pd.read_csv(io.StringIO(s.decode('utf-8')))
+
+
+
+data['pop_level']=data[' shares']
+data['pop_level'].loc[data[' shares'].between(0,1000)] = 0
+data['pop_level'].loc[data[' shares'].between(1001,2000)] = 1
+data['pop_level'].loc[data[' shares'].between(2000,3000,inclusive=False)] = 2
+data['pop_level'].loc[data[' shares'].between(3000,4000)] = 3
+data['pop_level'].loc[data[' shares'].between(4000,5000,inclusive=False)] = 4
+data['pop_level'].loc[data[' shares']>=5000] = 5
+
 # read text from URL
 #url2 = ""
 #t = requests.get(url2).content
@@ -26,7 +37,7 @@ moswl =  load('ModelRF.joblib')
 data.rename(columns={ data.columns[0]: "idx" }, inplace=True)
 # re-formate the data
 #data.drop('Unnamed: 0',axis=1)
-url2 = 'https://raw.githubusercontent.com/thuhlz/OpenDataSetNewsPop/master/10_pop_news_dataset.csv'
+url2 = 'https://raw.githubusercontent.com/thuhlz/OpenDataSetNewsPop/master/news.csv'
 t = requests.get(url2).content
 textdata = pd.read_csv(io.StringIO(t.decode('utf-8')))
 
@@ -59,10 +70,37 @@ def teardown_request(exception):
 def index():
     return render_template("index.html")
 
+def get_count(news_type):
+    df = pd.DataFrame(data[data[news_type] == 1]['pop_level'].value_counts())
+    dict = {}
+    for i in range(6):
+        dict[df.index[i]] =  df.iloc[i].values[0]
+    l1, l2, l3, l4, l5, l6 = dict[0],dict[1],dict[2],dict[3],dict[4],dict[5]
+    return l1,l2,l3,l4,l5,l6
+
+@app.route('/dashboard', methods=['POST','GET'])
+def dashboard():
+    typelist = [' data_channel_is_lifestyle', ' data_channel_is_entertainment',
+                ' data_channel_is_bus', ' data_channel_is_socmed',
+                ' data_channel_is_tech', ' data_channel_is_world']
+    l1,l2,l3,l4,l5,l6 = get_count(typelist[0])
+    e1, e2, e3, e4,e5, e6 = get_count(typelist[1])
+    b1, b2, b3, b4, b5, b6 = get_count(typelist[2])
+    s1, s2, s3, s4, s5, s6 = get_count(typelist[3])
+    t1, t2, t3, t4, t5, t6 = get_count(typelist[4])
+    w1, w2, w3, w4, w5, w6 = get_count(typelist[5])
+    print(s1, s2, s3, s4, s5, s6,t1, t2, t3, t4, t5, t6,w1, w2, w3, w4, w5, w6)
+    return render_template("dashboard.html",l1=l1,l2=l2,l3=l3,l4=l4,l5=l5,l6=l6,
+                           e1=e1, e2=e2, e3=e3, e4=e4,e5=e5, e6=e6,
+                           b1=b1, b2=b2, b3=b3, b4=b4, b5=b5, b6=b6,
+                           s1=s1, s2=s2, s3=s3, s4=s4, s5=s5, s6=s6,
+                           t1=t1, t2=t2, t3=t3, t4=t4, t5=t5, t6=t6,
+                           w1=w1, w2=w2, w3=w3, w4=w4, w5=w5, w6=w6)
+
 
 @app.route('/list', methods=['POST','GET'])
 def list():
-    a = [i for i in range(10)]
+    a = [i for i in range(1000)]
     np.random.shuffle(a)
     nums = a[:6]
 
@@ -113,8 +151,8 @@ def predict():
     text = T_sql['text'].values[0]
     title =T_sql['title'].values[0]
     results = getTable(index)
-    results =results.iloc[:,2:-1]
-    pop_dist=["very low", "below average", "average", "high", "very high", "very high"]
+    results =results.iloc[:,2:-2]
+    pop_dist=["very low","low", "below average", "above average", "high", "very high"]
     pop_value = pop_dist[moswl.predict(results)[0]]
 
     info = []
