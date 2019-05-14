@@ -104,10 +104,12 @@
     <section class="jumbotron text-center">
         <div class="container">
             <h1 class="jumbotron-heading">News Popularity Prediction</h1>
+            <form method="POST" action="/predict_by_url">
             <div class="input-group" style = "margin-top: 5%">
-                <input type="url" id="newsURL" class="form-control" placeholder="Enter News URL for Prediction" required autofocus>
-                <a href="/predict" class="btn btn-md btn-outline-secondary" style = "margin-left:5%">Go Predict!</a>
+                <input type="url" id="inputurl" name = 'inputurl' class="form-control" value="http://mashable.com/2014/10/16/apple-ipad-air-2-revealed/" required autofocus>
+                <input type="submit" value="Go Predict!" class="btn btn-md btn-outline-secondary" style = "margin-left:5%">
             </div>
+            </form>
             <p class="lead text-muted" style = "margin-top: 5%">Or select a sample news article listed below to start your first prediction. </p>
         </div>
     </section>

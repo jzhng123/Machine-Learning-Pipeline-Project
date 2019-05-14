@@ -43,8 +43,6 @@ textdata = pd.read_csv(io.StringIO(t.decode('utf-8')))
 
 
 
-
-
 def getTable(index):
     query = "SELECT * FROM data WHERE idx = %s;" % (index)
     #text = gettext(url)
@@ -100,7 +98,7 @@ def dashboard():
 
 @app.route('/list', methods=['POST','GET'])
 def list():
-    a = [i for i in range(1000)]
+    a = [i for i in range(textdata.shape[0])]
     np.random.shuffle(a)
     nums = a[:6]
 
@@ -163,6 +161,34 @@ def predict():
     context = dict(NLP_values=info)
 
     return render_template("predict.html", pop_value=pop_value,text = text,title = title,url =url, **context)
+
+@app.route('/predict_by_url', methods=['GET','POST'])
+def predict_by_url():
+    #if request.method != 'POST':
+    #    return render_template("wrong.html")
+
+    inputurl = request.form['inputurl']
+    if textdata[textdata['url']==inputurl]['idx'].shape[0] != 0:
+        index = textdata[textdata['url'] == inputurl]['idx'].values[0]
+        T_sql = gettext(index)
+        url = T_sql['url'].values[0]
+        text = T_sql['text'].values[0]
+        title =T_sql['title'].values[0]
+        results = getTable(index)
+        results =results.iloc[:,2:-2]
+        pop_dist=["very low","low", "below average", "above average", "high", "very high"]
+        pop_value = pop_dist[moswl.predict(results)[0]]
+
+        info = []
+        dic = dict()
+        for i in results.columns.tolist():
+            dic[i] = results[i].values[0]
+        info.append(dic)
+        context = dict(NLP_values=info)
+
+        return render_template("predict_by_url.html", pop_value=pop_value,text = text,title = title,url =url, **context)
+    else:
+        return render_template("error.html")
 
 
 if __name__ == "__main__":
