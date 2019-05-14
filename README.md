@@ -5,7 +5,18 @@
 The project is an online news popularity prediction Application. It helps editors learn the popularity of their work and displays the stats of popular online news trendings.
 The Application is already ONLINE! Check out http://34.74.188.21:8111/
 (If your computer's browser says 'Can’t connect securely to this page', please use a mobile device instead.)
+## Homepage
+![image](https://github.com/jzhng123/Machine-Learning-Pipeline-Project/blob/Sprint/FireShot/FireShot%20Capture%20001%20-%20News%20Popularity%20Homepage%20-%2034.74.188.21.png)
 
+
+## Dashboard
+![image](https://github.com/jzhng123/Machine-Learning-Pipeline-Project/blob/Sprint/FireShot/FireShot%20Capture%20002%20-%20What's%20Trending%20Now%20-%2034.74.188.21.png)
+
+## Prediction List
+![image](https://github.com/jzhng123/Machine-Learning-Pipeline-Project/blob/Sprint/FireShot/FireShot%20Capture%20003%20-%20Select%20News%20to%20Predict%20-%2034.74.188.21.png)
+
+## Predicting Function
+![image](https://github.com/jzhng123/Machine-Learning-Pipeline-Project/blob/Sprint/FireShot/FireShot%20Capture%20004%20-%20News%20Prediction%20-%2034.74.188.21.png)
 
 # The first sprint iteration 
 On top of the application in the MVP branch, we added the following features to add value.
