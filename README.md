@@ -24,7 +24,7 @@ The future work will be focused on the following value added features.
 * Makes the email subscription service work so user can get update from us.
 * The improvement on the machine learning algorithm.
 * Automatically gather the data and update the database everyday. Rerun the model every 2 or 3 days to generate updated model.
-* Write a more robust web crawler that can support any website.
+* Currently, our web crawler only supports mashable's articles website. In the future, we wish to write a more robust web crawler that can support any website.
 
 # Running the application
 * In your environment, run server.py file and go to the link showed up, and Our main page will show up.
