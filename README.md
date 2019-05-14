@@ -3,7 +3,7 @@
 # Overview of Project 
 
 The project is an online news popularity prediction Application. It helps editors learn the popularity of their work and displays the stats of popular online news trendings.
-The Application is already ONLINE! Check out https://34.74.188.21:8111/ 
+The Application is already ONLINE! Check out http://34.74.188.21:8111/
 (If your computer's browser says 'Can’t connect securely to this page', please use a mobile device instead.)
 
 
